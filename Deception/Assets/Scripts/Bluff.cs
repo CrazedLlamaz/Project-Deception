@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Bluff : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //This Script will display errors until a system has been built for playing/moving cards.
+    
 
-    // Update is called once per frame
-    void Update()
+    public void BluffStart()
     {
-        
+
     }
 }
