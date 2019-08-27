@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    bool matchStart;
+    /* bool matchStart;
     bool drawPhase;
     bool summoningPhase;
     bool spellPhase;
@@ -117,5 +117,5 @@ public class GameController : MonoBehaviour
     EndTurn()
     {
 
-    }
+    }*/
 }
