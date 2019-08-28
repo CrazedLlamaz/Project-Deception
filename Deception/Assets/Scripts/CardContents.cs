@@ -20,7 +20,6 @@ public class CardContents : MonoBehaviour
     void Start()
     {
         nameText.text = cardContainer.cardName;
-        descriptionText.text = cardContainer.description;
 
         attackValue.text = cardContainer.attack.ToString();
         healthValue.text = cardContainer.health.ToString();
