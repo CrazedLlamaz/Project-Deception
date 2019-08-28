@@ -23,11 +23,14 @@ public class DeckScript : MonoBehaviour
     public static List<string> BuildDeck()
     {
         List<string> newDeck = new List<string>();
-        foreach (string deckContent in deckContents)
+        for (int i = 0; i < 10; i++)
         {
-            newDeck.Add(deckContent);
+            newDeck.Add(deckContents[0]);
+            i++;
         }
 
         return newDeck;
+
+        Debug.Log(newDeck);
     }
 }
