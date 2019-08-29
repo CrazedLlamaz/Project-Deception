@@ -12,9 +12,22 @@ public class DropZone : MonoBehaviour, IDropHandler
         Debug.Log("On Drop");
 
         Draggable draggable = pointerEventData.pointerDrag.GetComponent<Draggable>();
-        if(draggable != null)
+        CardContents cardContents = pointerEventData.pointerDrag.GetComponent<CardContents>();
+        GameObject cardBack = pointerEventData.pointerDrag.transform.GetChild(5).gameObject;
+        if(draggable != null && zoneType == ZoneType.PlayerField)
         {
-            draggable.parentToReturnTo = this.transform;
+            if(cardContents.playerCard == true)
+            {
+                draggable.parentToReturnTo = this.transform;
+            }
+        }
+        else if (draggable != null && zoneType == ZoneType.EnemyField)
+        {
+            if(cardContents.enemyCard == true)
+            {
+                draggable.parentToReturnTo = this.transform;
+                cardBack.SetActive(false);
+            }
         }
     }
 }

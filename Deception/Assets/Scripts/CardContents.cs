@@ -9,20 +9,24 @@ public class CardContents : MonoBehaviour
     public CardContainer cardContainer;
 
     public TextMeshProUGUI nameText;
-    public TextMeshProUGUI descriptionText;
+    //public TextMeshProUGUI descriptionText;
 
     public TextMeshProUGUI attackValue;
     public TextMeshProUGUI healthValue;
 
     public Image cardArtwork;
 
+    public bool playerCard;
+    public bool enemyCard;
+
     // Start is called before the first frame update
     void Start()
     {
-        nameText.text = cardContainer.cardName;
 
-        attackValue.text = cardContainer.attack.ToString();
-        healthValue.text = cardContainer.health.ToString();
+        //nameText.text = cardContainer.cardName;
+
+        //attackValue.text = cardContainer.attack.ToString();
+        //healthValue.text = cardContainer.health.ToString();
     }
 
     // Update is called once per frame

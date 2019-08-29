@@ -17,14 +17,18 @@ public class GameController : MonoBehaviour
 
     public string[] deckContents = new string[] {"Chicken", "Valiant Knight", "Goblin", "Wizard", "Dog", "Big Bad"};
 
-    
+    //public CardContainer[] cards;
+
+    //public CardContainer[] cards;
+    public GameObject[] cardPrefabs;
+
+    public List<string> playerDeck;
+    public List<string> enemyDeck;
     // Start is called before the first frame update
     void Start()
     {
         matchStart = true;
         firstTurn = true;
-
-        
     }
 
     // Update is called once per frame
@@ -38,9 +42,20 @@ public class GameController : MonoBehaviour
                 CoinFlip();
             }
 
-            BuildDeck();
+            playerDeck = BuildDeck();
+            Shuffle(playerDeck);
+
+            enemyDeck = BuildDeck();
+            Shuffle(enemyDeck);
+
+            foreach (string card in playerDeck)
+            {
+                print(card);
+            }
 
             Debug.Log("Match Start");
+
+            Draw();
         }
         
         if (drawPhase)
@@ -69,22 +84,103 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void Shuffle<T>(List<T> list)
+    {
+        System.Random random = new System.Random();
+        int n = list.Count;
+        while (n > 1)
+        {
+            int k = random.Next(n);
+            n--;
+            T temp = list[k];
+            list[k] = list[n];
+            list[n] = temp;
+        }
+    }
+
     public List<string> BuildDeck()
     {
         List<string> newDeck = new List<string>();
         for (int i = 0; i < 10; i++)
         {
             newDeck.Add(deckContents[0]);
+            newDeck.Add(deckContents[1]);
 
             Debug.Log("Card Added");
         }
 
         Debug.Log("Deck Built");
 
+        Debug.Log(newDeck);
+
         matchStart = false;
         drawPhase = true;
 
         return newDeck;
+    }
+
+    public void Draw()
+    {
+        if(playerTurn)
+        {
+            foreach(string card in playerDeck)
+            {
+                if( card == cardPrefabs[0].name)
+                {
+                    GameObject newCard = Instantiate(cardPrefabs[0], transform.position, Quaternion.identity, GameObject.Find("/Canvas/PlayerHand").transform);
+                    newCard.name = card;
+                    CardContents newCardContents = newCard.GetComponent<CardContents>();
+                    newCardContents.playerCard = true;
+                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                    //newCard.transform.SetParent(GameObject.Find("/Canvas/PlayerHand").transform);
+                }
+                else if (card == cardPrefabs[1].name)
+                {
+                    GameObject newCard = Instantiate(cardPrefabs[1], transform.position, Quaternion.identity, GameObject.Find("/Canvas/PlayerHand").transform);
+                    newCard.name = card;
+                    CardContents newCardContents = newCard.GetComponent<CardContents>();
+                    newCardContents.playerCard = true;
+                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                    //newCard.transform.SetParent(GameObject.Find("/Canvas/PlayerHand").transform);
+                }
+                
+            }
+        }
+        else
+        {
+            foreach(string card in enemyDeck)
+            {
+                if( card == cardPrefabs[0].name)
+                {
+                    GameObject newCard = Instantiate(cardPrefabs[0], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+                    newCard.name = card;
+                    CardContents newCardContents = newCard.GetComponent<CardContents>();
+                    newCardContents.enemyCard = true;
+                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                    newCard.transform.GetChild(5).gameObject.SetActive(true);
+                    //newCard.transform.SetParent(GameObject.Find("/Canvas/EnemyHand").transform);
+                }
+                else if (card == cardPrefabs[1].name)
+                {
+                    GameObject newCard = Instantiate(cardPrefabs[1], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+                    newCard.name = card;
+                    CardContents newCardContents = newCard.GetComponent<CardContents>();
+                    newCardContents.enemyCard = true;
+                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                    newCard.transform.GetChild(5).gameObject.SetActive(true);
+                    //newCard.transform.SetParent(GameObject.Find("/Canvas/EnemyHand").transform);
+                }
+                
+            }
+        }
     }
 
     void CoinFlip()
