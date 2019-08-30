@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a0687a7abb13b41bc32a00941e71c2, type: 3}
   m_Name: TheVeryAncientWizard
   m_EditorClassIdentifier: 
-  cardName: 
+  cardName: The Very Ancient Wizard
   description: 
-  attack: 0
-  health: 0
+  attack: 3
+  health: 1
   artwork: {fileID: 0}

@@ -1148,13 +1148,15 @@ MonoBehaviour:
   deckContents:
   - Chicken
   - Valiant Knight
-  - Goblin
-  - Wizard
-  - Dog
-  - Big Bad
+  - Brutus the Strong
+  - The Very Ancient Wizard
+  - Guardian of The Abyss
   cardPrefabs:
   - {fileID: 68049138073593530, guid: f343bfa14487f48488cd57ea80af42bb, type: 3}
   - {fileID: 3709853072244717146, guid: 32c3dae5220e9c345979910eb473c0c1, type: 3}
+  - {fileID: 1089074306760200437, guid: 19d63bfe1e85bc34f8b6b51854d54b7d, type: 3}
+  - {fileID: 3106548423019296941, guid: a84c5fa2ca6d60f4cbe98ce0fc1ec149, type: 3}
+  - {fileID: 5988324023656965518, guid: d2d6c1be15b1d07468d8d5de61df09b1, type: 3}
   playerDeck: []
   enemyDeck: []
 --- !u!4 &1995114623
