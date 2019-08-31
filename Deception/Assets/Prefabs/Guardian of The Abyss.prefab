@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3106548422116961495}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5660378, g: 0.5660378, b: 0.5660378, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3106548422563381418}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
@@ -831,9 +831,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardContainer: {fileID: 11400000, guid: e32b091245f19db4fa8b6ee00e94082d, type: 2}
   nameText: {fileID: 3106548422328363058}
-  attackValue: {fileID: 3106548422116961493}
-  healthValue: {fileID: 3106548422563381416}
-  cardArtwork: {fileID: 0}
+  attackValue: 0
+  healthValue: 0
+  cardArtwork: {fileID: 21300000, guid: 4623beed0a58ea54eb1f3bc6d4b48562, type: 3}
+  attackValueArtwork: {fileID: 0}
+  healthValueArtwork: {fileID: 0}
+  numericValues:
+  - {fileID: 21300000, guid: b38794309669f7b4cbdae4e9bd698194, type: 3}
+  - {fileID: 21300000, guid: 5a98858cd56c8aa45a1ced3d5daaab3d, type: 3}
+  - {fileID: 21300000, guid: b6eddfcdca91c874cb0697a2af34d848, type: 3}
+  - {fileID: 21300000, guid: e9cfe4a92d08cb049b308fda4ef7a0a2, type: 3}
+  - {fileID: 21300000, guid: da759af1f4ef0494b8484cb298bb4d89, type: 3}
+  - {fileID: 21300000, guid: e6654c8f8f67a7c4699fd8cf54f2ac21, type: 3}
+  - {fileID: 21300000, guid: 5df6076bc9f68c745bab996335a15bf9, type: 3}
+  - {fileID: 21300000, guid: 25296d2a1416732499c920511f5de55d, type: 3}
+  - {fileID: 21300000, guid: 1aa49b0ed0be433429d8c097645580a6, type: 3}
+  - {fileID: 21300000, guid: a78f509adb63ad44c9c75da0dd75dbc6, type: 3}
+  cardTemplate: {fileID: 21300000, guid: c6bb62b213f6da641a53001166ef267e, type: 3}
+  cardBack: {fileID: 21300000, guid: faf16f2a7d0300640979b02a057121cf, type: 3}
   playerCard: 0
   enemyCard: 0
 --- !u!114 &3106548423019296938
@@ -849,6 +864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
+  canBeDragged: 0
 --- !u!114 &3106548423019296937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,7 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.0075297356, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

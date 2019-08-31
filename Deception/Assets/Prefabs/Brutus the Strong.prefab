@@ -832,9 +832,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardContainer: {fileID: 11400000, guid: 43a95979aca2c5040a72b8c3d552c3e7, type: 2}
   nameText: {fileID: 1089074306375319658}
-  attackValue: {fileID: 1089074305917764749}
-  healthValue: {fileID: 1089074306679302384}
-  cardArtwork: {fileID: 0}
+  attackValue: 0
+  healthValue: 0
+  cardArtwork: {fileID: 21300000, guid: eb007d7f18ecae946839963f51be5ac9, type: 3}
+  attackValueArtwork: {fileID: 0}
+  healthValueArtwork: {fileID: 0}
+  numericValues:
+  - {fileID: 21300000, guid: b38794309669f7b4cbdae4e9bd698194, type: 3}
+  - {fileID: 21300000, guid: 5a98858cd56c8aa45a1ced3d5daaab3d, type: 3}
+  - {fileID: 21300000, guid: b6eddfcdca91c874cb0697a2af34d848, type: 3}
+  - {fileID: 21300000, guid: e9cfe4a92d08cb049b308fda4ef7a0a2, type: 3}
+  - {fileID: 21300000, guid: da759af1f4ef0494b8484cb298bb4d89, type: 3}
+  - {fileID: 21300000, guid: e6654c8f8f67a7c4699fd8cf54f2ac21, type: 3}
+  - {fileID: 21300000, guid: 5df6076bc9f68c745bab996335a15bf9, type: 3}
+  - {fileID: 21300000, guid: 25296d2a1416732499c920511f5de55d, type: 3}
+  - {fileID: 21300000, guid: 1aa49b0ed0be433429d8c097645580a6, type: 3}
+  - {fileID: 21300000, guid: a78f509adb63ad44c9c75da0dd75dbc6, type: 3}
+  cardTemplate: {fileID: 21300000, guid: c6bb62b213f6da641a53001166ef267e, type: 3}
+  cardBack: {fileID: 21300000, guid: faf16f2a7d0300640979b02a057121cf, type: 3}
   playerCard: 0
   enemyCard: 0
 --- !u!114 &1089074306760200434
@@ -850,6 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
+  canBeDragged: 0
 --- !u!114 &1089074306760200433
 MonoBehaviour:
   m_ObjectHideFlags: 0
