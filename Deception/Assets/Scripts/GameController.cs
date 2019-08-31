@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    public Button playerDeckButton;
+
     bool matchStart;
     bool drawPhase;
     bool summoningPhase;
@@ -14,6 +17,7 @@ public class GameController : MonoBehaviour
     bool firstTurn; 
     bool coinFlip;
     bool coinFlipped;
+    bool cardDrawn;
 
     public string[] deckContents = new string[] {"Chicken", "Valiant Knight", "Brutus the Strong", "The Very Ancient Wizard", "Guardian of The Abyss"};
 
@@ -24,17 +28,24 @@ public class GameController : MonoBehaviour
 
     public List<string> playerDeck;
     public List<string> enemyDeck;
+
+    float waitTime;
+
     // Start is called before the first frame update
     void Start()
     {
         matchStart = true;
         firstTurn = true;
 
+        waitTime = Time.time + 1;
+
         playerDeck = BuildDeck();
         Shuffle(playerDeck);
 
         enemyDeck = BuildDeck();
         Shuffle(enemyDeck);
+
+        playerDeckButton.enabled = false;
 
         FirstDraw();
 
@@ -43,29 +54,20 @@ public class GameController : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        if(matchStart)
-        {
-            
-            if(!coinFlipped)
-            {
-                
-            }
-
-            //playerDeck = BuildDeck();
-            //Shuffle(playerDeck);
-
-            //enemyDeck = BuildDeck();
-            //Shuffle(enemyDeck);
-
-            Debug.Log("Match Start");
-
-            //FirstDraw();
-        }
-        
+    {   
         if (drawPhase)
         {
-            //DrawPhase();
+            if(playerTurn && !cardDrawn)
+            {
+                playerDeckButton.enabled = true;
+            }
+            else if(!playerTurn && !cardDrawn)
+            {     
+                if(Time.time > waitTime)
+                {
+                    EnemyDraw();
+                } 
+            }
         }
 
         if (summoningPhase)
@@ -205,7 +207,7 @@ public class GameController : MonoBehaviour
                     GameObject newCard = Instantiate(cardPrefabs[0], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
                     newCard.name = cardPrefabs[0].name;
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
+                    newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
@@ -217,7 +219,7 @@ public class GameController : MonoBehaviour
                     GameObject newCard = Instantiate(cardPrefabs[1], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
                     newCard.name = cardPrefabs[1].name;
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
+                    newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
@@ -229,7 +231,7 @@ public class GameController : MonoBehaviour
                     GameObject newCard = Instantiate(cardPrefabs[2], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
                     newCard.name = cardPrefabs[2].name;
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
+                    newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
@@ -241,7 +243,7 @@ public class GameController : MonoBehaviour
                     GameObject newCard = Instantiate(cardPrefabs[3], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
                     newCard.name = cardPrefabs[3].name;
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
+                    newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
@@ -253,16 +255,13 @@ public class GameController : MonoBehaviour
                     GameObject newCard = Instantiate(cardPrefabs[4], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
                     newCard.name = cardPrefabs[4].name;
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
+                    newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
                     //enemyDeck.Remove(enemyDeck[i]);
                     newCard.transform.GetChild(5).gameObject.SetActive(true);
                 }
-
-                
-
                 enemyDeck.RemoveAt(i);
 
                 i--;
@@ -283,10 +282,7 @@ public class GameController : MonoBehaviour
             int i = playerDeck.Count - 1;
             Debug.Log(i);
 
-            if(playerDeck[i] == cardPrefabs[0].name)
-
-                
-
+            if(playerDeck[i] == cardPrefabs[0].name && i > -1)
                 {
                     GameObject newCard = Instantiate(cardPrefabs[0], transform.position, Quaternion.identity, GameObject.Find("/Canvas/PlayerHand").transform);
                     newCard.name = cardPrefabs[0].name;
@@ -317,7 +313,7 @@ public class GameController : MonoBehaviour
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    playerDeck.RemoveAt(i);
                 }
                 else if(playerDeck[i] == cardPrefabs[3].name)
                 {
@@ -328,7 +324,7 @@ public class GameController : MonoBehaviour
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    playerDeck.RemoveAt(i);
                 }
                 else if(playerDeck[i] == cardPrefabs[4].name)
                 {
@@ -339,13 +335,19 @@ public class GameController : MonoBehaviour
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
                     newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
                     newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    playerDeck.RemoveAt(i);
                 }
         }
         else
         {
             Debug.Log("Enemy Turn");
         }
+
+        cardDrawn = true;
+        playerDeckButton.enabled = false;
+
+        drawPhase = false;
+        summoningPhase = true;
 
         Debug.Log("Enemy Deck Size" + enemyDeck.Count);
         Debug.Log("Player Deck Size" + playerDeck.Count);
@@ -354,69 +356,70 @@ public class GameController : MonoBehaviour
     void EnemyDraw()
     {
 
-        int i = enemyDeck.Count;
+        int i = enemyDeck.Count -1;
 
-        if(enemyDeck[i] == cardPrefabs[0].name)
+        if(enemyDeck[i] == cardPrefabs[0].name && i > -1)
+        {
+            GameObject newCard = Instantiate(cardPrefabs[0], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+            newCard.name = cardPrefabs[0].name;
+            CardContents newCardContents = newCard.GetComponent<CardContents>();
+            newCardContents.enemyCard = true;
+            newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+            enemyDeck.RemoveAt(i);
+        }
+        else if(playerDeck[i] == cardPrefabs[1].name)
+        {
+            GameObject newCard = Instantiate(cardPrefabs[1], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+            newCard.name = cardPrefabs[1].name;
+            CardContents newCardContents = newCard.GetComponent<CardContents>();
+            newCardContents.enemyCard = true;
+            newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+            enemyDeck.RemoveAt(i);
+        }
+        else if(enemyDeck[i] == cardPrefabs[2].name)
+        {
+            GameObject newCard = Instantiate(cardPrefabs[2], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+            newCard.name = cardPrefabs[2].name;
+            CardContents newCardContents = newCard.GetComponent<CardContents>();
+            newCardContents.playerCard = true;
+            newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+            //enemyDeck.Remove(enemyDeck[i]);
+            newCard.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        else if(enemyDeck[i] == cardPrefabs[3].name)
+        {
+            GameObject newCard = Instantiate(cardPrefabs[3], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+            newCard.name = cardPrefabs[3].name;
+            CardContents newCardContents = newCard.GetComponent<CardContents>();
+            newCardContents.playerCard = true;
+            newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+            //enemyDeck.Remove(enemyDeck[i]);
+            newCard.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        else if(enemyDeck[i] == cardPrefabs[4].name)
+        {
+            GameObject newCard = Instantiate(cardPrefabs[4], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
+            newCard.name = cardPrefabs[4].name;
+            CardContents newCardContents = newCard.GetComponent<CardContents>();
+            newCardContents.playerCard = true;
+            newCardContents.nameText.text = newCardContents.cardContainer.cardName;
+            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
+            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+            //enemyDeck.Remove(enemyDeck[i]);
+            newCard.transform.GetChild(5).gameObject.SetActive(true);
+        }
+        cardDrawn = true;
 
-                
-
-                {
-                    GameObject newCard = Instantiate(cardPrefabs[0], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
-                    newCard.name = cardPrefabs[0].name;
-                    CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.enemyCard = true;
-                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    enemyDeck.RemoveAt(i);
-                }
-                else if(playerDeck[i] == cardPrefabs[1].name)
-                {
-                    GameObject newCard = Instantiate(cardPrefabs[1], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
-                    newCard.name = cardPrefabs[1].name;
-                    CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.enemyCard = true;
-                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    enemyDeck.RemoveAt(i);
-                }
-                else if(enemyDeck[i] == cardPrefabs[2].name)
-                {
-                    GameObject newCard = Instantiate(cardPrefabs[2], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
-                    newCard.name = cardPrefabs[2].name;
-                    CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
-                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
-                    newCard.transform.GetChild(5).gameObject.SetActive(true);
-                }
-                else if(enemyDeck[i] == cardPrefabs[3].name)
-                {
-                    GameObject newCard = Instantiate(cardPrefabs[3], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
-                    newCard.name = cardPrefabs[3].name;
-                    CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
-                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
-                    newCard.transform.GetChild(5).gameObject.SetActive(true);
-                }
-                else if(enemyDeck[i] == cardPrefabs[4].name)
-                {
-                    GameObject newCard = Instantiate(cardPrefabs[4], transform.position, Quaternion.identity, GameObject.Find("/Canvas/EnemyHand").transform);
-                    newCard.name = cardPrefabs[4].name;
-                    CardContents newCardContents = newCard.GetComponent<CardContents>();
-                    newCardContents.playerCard = true;
-                    newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
-                    newCard.transform.GetChild(5).gameObject.SetActive(true);
-                }
+        drawPhase = false;
+        summoningPhase = true;
     }
 
     void CoinFlip()
