@@ -10,11 +10,13 @@ public class GameController : MonoBehaviour
     public DropZone playerField;
     public DropZone enemyField;
 
+    public Draggable draggable;
+
     bool matchStart;
     bool drawPhase;
-    bool summoningPhase;
+    public bool summoningPhase;
     bool spellPhase;
-    bool combatPhase;
+    public bool combatPhase;
     bool endTurn;
     bool playerTurn;
     bool firstTurn; 
@@ -89,6 +91,8 @@ public class GameController : MonoBehaviour
             }
             else if(monsterSummoned)
             {
+                playerField.enabled = false;
+                enemyField.enabled = false;
                 summoningPhase = false;
                 spellPhase = true;
             }
@@ -96,7 +100,7 @@ public class GameController : MonoBehaviour
 
         if (spellPhase)
         {
-            //SpellPhase();
+            //skipping through phase as it is not being used.
 
             spellPhase = false;
             combatPhase = true;
@@ -104,12 +108,13 @@ public class GameController : MonoBehaviour
 
         if (combatPhase)
         {
-            //CombatPhase();
+            draggable.inCombat = true;
 
             if(endCombat)
             {
                 combatPhase = false;
                 endTurn = true;
+                draggable.inCombat = false;
             }
         }
 
@@ -181,9 +186,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                 }
                 else if(playerDeck[i] == cardPrefabs[1].name)
                 {
@@ -192,10 +203,16 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
-                }
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
+                    }
                 else if(playerDeck[i] == cardPrefabs[2].name)
                 {
                     GameObject newCard = Instantiate(cardPrefabs[2], transform.position, Quaternion.identity, GameObject.Find("/Canvas/PlayerHand").transform);
@@ -203,9 +220,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                 }
                 else if(playerDeck[i] == cardPrefabs[3].name)
                 {
@@ -214,9 +237,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                 }
                 else if(playerDeck[i] == cardPrefabs[4].name)
                 {
@@ -225,9 +254,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //playerDeck.Remove(playerDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                 }
 
                 playerDeck.RemoveAt(i);
@@ -248,9 +283,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     newCard.transform.GetChild(5).gameObject.SetActive(true);
                 }
                 else if(enemyDeck[i] == cardPrefabs[1].name)
@@ -260,9 +301,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     newCard.transform.GetChild(5).gameObject.SetActive(true);
                 }
                 else if(enemyDeck[i] == cardPrefabs[2].name)
@@ -272,9 +319,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
+                    newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     newCard.transform.GetChild(5).gameObject.SetActive(true);
                 }
                 else if(enemyDeck[i] == cardPrefabs[3].name)
@@ -284,9 +337,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
+                  newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     newCard.transform.GetChild(5).gameObject.SetActive(true);
                 }
                 else if(enemyDeck[i] == cardPrefabs[4].name)
@@ -296,9 +355,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.enemyCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-                    //enemyDeck.Remove(enemyDeck[i]);
+                   newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     newCard.transform.GetChild(5).gameObject.SetActive(true);
                 }
                 enemyDeck.RemoveAt(i);
@@ -328,8 +393,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                   newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     playerDeck.RemoveAt(i);
                 }
                 else if(playerDeck[i] == cardPrefabs[1].name)
@@ -339,8 +411,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                  newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     playerDeck.RemoveAt(i);
                 }
                 else if(playerDeck[i] == cardPrefabs[2].name)
@@ -350,8 +429,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                  newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     playerDeck.RemoveAt(i);
                 }
                 else if(playerDeck[i] == cardPrefabs[3].name)
@@ -361,8 +447,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                  newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     playerDeck.RemoveAt(i);
                 }
                 else if(playerDeck[i] == cardPrefabs[4].name)
@@ -372,8 +465,15 @@ public class GameController : MonoBehaviour
                     CardContents newCardContents = newCard.GetComponent<CardContents>();
                     newCardContents.playerCard = true;
                     newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-                    newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-                    newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+                 newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
                     playerDeck.RemoveAt(i);
                 }
         }
@@ -404,8 +504,15 @@ public class GameController : MonoBehaviour
             CardContents newCardContents = newCard.GetComponent<CardContents>();
             newCardContents.enemyCard = true;
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+           newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+            newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
             enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
@@ -416,8 +523,15 @@ public class GameController : MonoBehaviour
             CardContents newCardContents = newCard.GetComponent<CardContents>();
             newCardContents.enemyCard = true;
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+          newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+            newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
             enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
@@ -428,8 +542,15 @@ public class GameController : MonoBehaviour
             CardContents newCardContents = newCard.GetComponent<CardContents>();
             newCardContents.playerCard = true;
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+          newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+            newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
             enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
@@ -440,8 +561,15 @@ public class GameController : MonoBehaviour
             CardContents newCardContents = newCard.GetComponent<CardContents>();
             newCardContents.playerCard = true;
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+         newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+            newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
             enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
@@ -452,8 +580,15 @@ public class GameController : MonoBehaviour
             CardContents newCardContents = newCard.GetComponent<CardContents>();
             newCardContents.playerCard = true;
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
-            newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
-            newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
+          newCardContents.attackValue = newCardContents.cardContainer.attack;
+                    newCardContents.healthValue = newCardContents.cardContainer.health;
+                    newCardContents.attackValueArtwork = newCardContents.numericValues[newCardContents.attackValue];
+                    newCardContents.healthValueArtwork = newCardContents.numericValues[newCardContents.healthValue];
+                    newCard.transform.GetChild(0).GetComponent<Image>().sprite = newCardContents.cardTemplate;
+                    newCard.transform.GetChild(1).GetComponent<Image>().sprite = newCardContents.cardArtwork;
+                    newCard.transform.GetChild(3).GetComponent<Image>().sprite = newCardContents.attackValueArtwork;
+                    newCard.transform.GetChild(4).GetComponent<Image>().sprite = newCardContents.healthValueArtwork;
+                    newCard.transform.GetChild(5).GetComponent<Image>().sprite = newCardContents.cardBack;
             enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }

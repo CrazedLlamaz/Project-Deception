@@ -17,23 +17,26 @@ public class DropZone : MonoBehaviour, IDropHandler
         Draggable draggable = pointerEventData.pointerDrag.GetComponent<Draggable>();
         CardContents cardContents = pointerEventData.pointerDrag.GetComponent<CardContents>();
         GameObject cardBack = pointerEventData.pointerDrag.transform.GetChild(5).gameObject;
-        if(draggable != null && zoneType == ZoneType.PlayerField)
+        if(gameController.summoningPhase)
         {
-            if(cardContents.playerCard == true && gameController.monsterSummoned == false)
+            if(draggable != null && zoneType == ZoneType.PlayerField)
             {
+                if(cardContents.playerCard == true && gameController.monsterSummoned == false)
+                {
                 draggable.parentToReturnTo = this.transform;
                 gameController.monsterSummoned = true;
+                }
             }
-        }
-        else if (draggable != null && zoneType == ZoneType.EnemyField)
-        {
-            if(cardContents.enemyCard == true && gameController.monsterSummoned == false)
+            else if (draggable != null && zoneType == ZoneType.EnemyField)
             {
-                draggable.parentToReturnTo = this.transform;
-                cardBack.SetActive(false);
+                if(cardContents.enemyCard == true && gameController.monsterSummoned == false)
+                {
+                    draggable.parentToReturnTo = this.transform;
+                    cardBack.SetActive(false);
 
-                gameController.monsterSummoned = true;
-            }
+                    gameController.monsterSummoned = true;
+                }   
+            }    
         }
     }
 }

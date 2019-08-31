@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8070303092260741900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8070303092260741902}
+  - component: {fileID: 8070303092260741903}
+  m_Layer: 0
+  m_Name: GameController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8070303092260741902
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070303092260741900}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 586.766, y: 187.81882, z: -129.17035}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8070303092260741903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8070303092260741900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3ed7e9cc52a3e14184b6bfccfcf3854, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDeckButton: {fileID: 0}
+  playerField: {fileID: 0}
+  enemyField: {fileID: 0}
+  draggable: {fileID: 0}
+  summoningPhase: 0
+  combatPhase: 0
+  monsterSummoned: 0
+  endCombat: 0
+  deckContents:
+  - Chicken
+  - Valiant Knight
+  - Brutus the Strong
+  - The Very Ancient Wizard
+  - Guardian of The Abyss
+  cardPrefabs:
+  - {fileID: 68049138073593530, guid: f343bfa14487f48488cd57ea80af42bb, type: 3}
+  - {fileID: 3709853072244717146, guid: 32c3dae5220e9c345979910eb473c0c1, type: 3}
+  - {fileID: 1089074306760200437, guid: 19d63bfe1e85bc34f8b6b51854d54b7d, type: 3}
+  - {fileID: 3106548423019296941, guid: a84c5fa2ca6d60f4cbe98ce0fc1ec149, type: 3}
+  - {fileID: 5988324023656965518, guid: d2d6c1be15b1d07468d8d5de61df09b1, type: 3}
+  playerDeck: []
+  enemyDeck: []
