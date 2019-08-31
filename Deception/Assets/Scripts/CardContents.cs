@@ -7,6 +7,7 @@ using TMPro;
 public class CardContents : MonoBehaviour
 {
     public CardContainer cardContainer;
+    public GameController gameController;
 
     public TextMeshProUGUI nameText;
     //public TextMeshProUGUI descriptionText;
@@ -23,6 +24,7 @@ public class CardContents : MonoBehaviour
 
     public bool playerCard;
     public bool enemyCard;
+    public bool hasAttacked;
 
     // Start is called before the first frame update
     void Start()
@@ -44,5 +46,10 @@ public class CardContents : MonoBehaviour
     {
         attackValueArtwork = numericValues[attackValue];
         healthValueArtwork = numericValues[healthValue];
+
+        if(gameController.combatPhase == false)
+        {
+            hasAttacked = false;
+        }
     }
 }

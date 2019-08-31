@@ -830,6 +830,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardContainer: {fileID: 11400000, guid: e32b091245f19db4fa8b6ee00e94082d, type: 2}
+  gameController: {fileID: 8070303092260741903, guid: 572c8a1a0618a2d438e1fb82013a41cc,
+    type: 3}
   nameText: {fileID: 3106548422328363058}
   attackValue: 0
   healthValue: 0
@@ -851,6 +853,7 @@ MonoBehaviour:
   cardBack: {fileID: 21300000, guid: faf16f2a7d0300640979b02a057121cf, type: 3}
   playerCard: 0
   enemyCard: 0
+  hasAttacked: 0
 --- !u!114 &3106548423019296938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,6 +868,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentToReturnTo: {fileID: 0}
   canBeDragged: 0
+  inCombat: 0
 --- !u!114 &3106548423019296937
 MonoBehaviour:
   m_ObjectHideFlags: 0

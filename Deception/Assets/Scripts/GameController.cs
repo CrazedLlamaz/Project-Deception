@@ -10,11 +10,13 @@ public class GameController : MonoBehaviour
     public DropZone playerField;
     public DropZone enemyField;
 
+    public Draggable draggable;
+
     bool matchStart;
     bool drawPhase;
-    bool summoningPhase;
+    public bool summoningPhase;
     bool spellPhase;
-    bool combatPhase;
+    public bool combatPhase;
     bool endTurn;
     bool playerTurn;
     bool firstTurn; 
@@ -89,6 +91,8 @@ public class GameController : MonoBehaviour
             }
             else if(monsterSummoned)
             {
+                playerField.enabled = false;
+                enemyField.enabled = false;
                 summoningPhase = false;
                 spellPhase = true;
             }
@@ -96,7 +100,7 @@ public class GameController : MonoBehaviour
 
         if (spellPhase)
         {
-            //SpellPhase();
+            //skipping through phase as it is not being used.
 
             spellPhase = false;
             combatPhase = true;
@@ -104,12 +108,13 @@ public class GameController : MonoBehaviour
 
         if (combatPhase)
         {
-            //CombatPhase();
+            draggable.inCombat = true;
 
             if(endCombat)
             {
                 combatPhase = false;
                 endTurn = true;
+                draggable.inCombat = false;
             }
         }
 
