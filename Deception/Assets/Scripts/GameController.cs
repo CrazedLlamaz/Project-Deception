@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     bool coinFlipped;
     bool cardDrawn;
     public bool monsterSummoned;
+    public bool endCombat;
 
     public string[] deckContents = new string[] {"Chicken", "Valiant Knight", "Brutus the Strong", "The Very Ancient Wizard", "Guardian of The Abyss"};
 
