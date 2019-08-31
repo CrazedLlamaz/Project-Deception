@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
 {
     public Button playerDeckButton;
 
+    public DropZone playerField;
+    public DropZone enemyField;
+
     bool matchStart;
     bool drawPhase;
     bool summoningPhase;
@@ -18,6 +21,7 @@ public class GameController : MonoBehaviour
     bool coinFlip;
     bool coinFlipped;
     bool cardDrawn;
+    public bool monsterSummoned;
 
     public string[] deckContents = new string[] {"Chicken", "Valiant Knight", "Brutus the Strong", "The Very Ancient Wizard", "Guardian of The Abyss"};
 
@@ -72,22 +76,56 @@ public class GameController : MonoBehaviour
 
         if (summoningPhase)
         {
-            //SummoningPhase();
+            if (playerTurn && !monsterSummoned)
+            {
+                playerField.enabled = true;
+            }
+            else if(!playerTurn && !monsterSummoned)
+            {
+                enemyField.enabled = true;
+
+                //enemy summons
+            }
+            else if(monsterSummoned)
+            {
+                summoningPhase = false;
+                spellPhase = true;
+            }
         }
 
         if (spellPhase)
         {
             //SpellPhase();
+
+            spellPhase = false;
+            combatPhase = true;
         }
 
         if (combatPhase)
         {
             //CombatPhase();
+
+            if(endCombat)
+            {
+                combatPhase = false;
+                endTurn = true;
+            }
         }
 
         if (endTurn)
         {
-            //EndTurn();
+            if(playerTurn)
+            {
+                playerTurn = false;
+                endTurn = false;
+                drawPhase = true;
+            }
+            else if(!playerTurn)
+            {
+                playerTurn = true;
+                endTurn = false;
+                drawPhase = true;
+            }
         }
     }
 
@@ -133,7 +171,7 @@ public class GameController : MonoBehaviour
             int deckSize = playerDeck.Count - 1;
             Debug.Log(deckSize);
             
-            for (int i = deckSize; i > (deckSize - 5);)
+            for (int i = deckSize; i > (deckSize - 3);)
             {
                 if(playerDeck[i] == cardPrefabs[0].name)
                 {
@@ -199,7 +237,7 @@ public class GameController : MonoBehaviour
             deckSize = enemyDeck.Count -1;
             Debug.Log(deckSize);
 
-            for (int i = deckSize; i > (deckSize - 5);)
+            for (int i = deckSize; i > (deckSize - 3);)
             {
 
                 if(enemyDeck[i] == cardPrefabs[0].name)
@@ -368,6 +406,7 @@ public class GameController : MonoBehaviour
             newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
             newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
             enemyDeck.RemoveAt(i);
+            newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
         else if(playerDeck[i] == cardPrefabs[1].name)
         {
@@ -379,6 +418,7 @@ public class GameController : MonoBehaviour
             newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
             newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
             enemyDeck.RemoveAt(i);
+            newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
         else if(enemyDeck[i] == cardPrefabs[2].name)
         {
@@ -389,7 +429,7 @@ public class GameController : MonoBehaviour
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
             newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
             newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-            //enemyDeck.Remove(enemyDeck[i]);
+            enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
         else if(enemyDeck[i] == cardPrefabs[3].name)
@@ -401,7 +441,7 @@ public class GameController : MonoBehaviour
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
             newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
             newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-            //enemyDeck.Remove(enemyDeck[i]);
+            enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
         else if(enemyDeck[i] == cardPrefabs[4].name)
@@ -413,7 +453,7 @@ public class GameController : MonoBehaviour
             newCardContents.nameText.text = newCardContents.cardContainer.cardName;
             newCardContents.attackValue.text = newCardContents.cardContainer.attack.ToString();
             newCardContents.healthValue.text = newCardContents.cardContainer.health.ToString();
-            //enemyDeck.Remove(enemyDeck[i]);
+            enemyDeck.RemoveAt(i);
             newCard.transform.GetChild(5).gameObject.SetActive(true);
         }
         cardDrawn = true;

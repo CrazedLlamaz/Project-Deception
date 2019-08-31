@@ -7,6 +7,9 @@ public class DropZone : MonoBehaviour, IDropHandler
 {
     public enum ZoneType {PlayerHand, PlayerField, EnemyHand, EnemyField, PlayerGraveyard, EnemyGraveyard, PlayerDeck, EnemyDeck};
     public ZoneType zoneType;
+
+    public GameController gameController;
+
     public void OnDrop(PointerEventData pointerEventData)
     {
         Debug.Log("On Drop");
@@ -16,17 +19,20 @@ public class DropZone : MonoBehaviour, IDropHandler
         GameObject cardBack = pointerEventData.pointerDrag.transform.GetChild(5).gameObject;
         if(draggable != null && zoneType == ZoneType.PlayerField)
         {
-            if(cardContents.playerCard == true)
+            if(cardContents.playerCard == true && gameController.monsterSummoned == false)
             {
                 draggable.parentToReturnTo = this.transform;
+                gameController.monsterSummoned = true;
             }
         }
         else if (draggable != null && zoneType == ZoneType.EnemyField)
         {
-            if(cardContents.enemyCard == true)
+            if(cardContents.enemyCard == true && gameController.monsterSummoned == false)
             {
                 draggable.parentToReturnTo = this.transform;
                 cardBack.SetActive(false);
+
+                gameController.monsterSummoned = true;
             }
         }
     }

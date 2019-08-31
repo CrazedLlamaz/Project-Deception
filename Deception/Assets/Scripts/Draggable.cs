@@ -7,6 +7,13 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 {
     public Transform parentToReturnTo = null;
 
+    public bool canBeDragged;
+
+    public void Start()
+    {
+        GameController gameController = GameObject.Find("/GameController").GetComponent<GameController>();
+    }
+
     public void OnBeginDrag(PointerEventData pointerEventData)
     {
         //Debug.Log("On Begin Drag");
